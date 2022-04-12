@@ -1,17 +1,29 @@
 package com.myapplication.gitaday14.ui.viewmodels
 
-import androidx.lifecycle.ViewModel
-import com.google.gson.Gson
-import com.myapplication.gitaday14.ui.App
-import com.myapplication.gitaday14.ui.database.CookieDataBase
-import com.myapplication.gitaday14.ui.model.Cookies
-import com.myapplication.gitaday14.ui.utils.getJsonDataFromAsset
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import androidx.lifecycle.*
+import com.myapplication.gitaday14.ui.CookieRepository
+import com.myapplication.gitaday14.ui.model.Cookie
 import kotlinx.coroutines.launch
 
-class FirstFragmentViewModel : ViewModel() {
+class FirstFragmentViewModel(private val repository: CookieRepository) : ViewModel() {
+    private val allCookie: LiveData<List<Cookie>> = repository.allCookie.asLiveData().apply {
+        mutableListOf<Cookie>()
+    }
+    val _allCookies: LiveData<List<Cookie>> = allCookie
 
+
+    fun insert(cookie: Cookie) = viewModelScope.launch {
+        repository.insert(cookie)
+    }
 
 }
 
+class CookieViewModelFactory(private val repository: CookieRepository) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(FirstFragmentViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return FirstFragmentViewModel(repository) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
+}

@@ -4,15 +4,16 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.gson.Gson
 import com.myapplication.gitaday14.R
 import com.myapplication.gitaday14.databinding.FragmentFirstBinding
-import com.myapplication.gitaday14.ui.database.CookieDataBase
+import com.myapplication.gitaday14.ui.App
 import com.myapplication.gitaday14.ui.model.Cookie
 import com.myapplication.gitaday14.ui.model.Cookies
 import com.myapplication.gitaday14.ui.utils.getJsonDataFromAsset
+import com.myapplication.gitaday14.ui.utils.loadImage
+import com.myapplication.gitaday14.ui.viewmodels.CookieViewModelFactory
 import com.myapplication.gitaday14.ui.viewmodels.FirstFragmentViewModel
 import kotlinx.coroutines.*
 
@@ -20,7 +21,9 @@ import kotlinx.coroutines.*
 class FirstFragment : Fragment() {
     private lateinit var binding: FragmentFirstBinding
 
-    private val viewModel: FirstFragmentViewModel by viewModels()
+    private val viewModel: FirstFragmentViewModel by viewModels {
+        CookieViewModelFactory((activity?.application as App).repository)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,8 +33,7 @@ class FirstFragment : Fragment() {
         binding = FragmentFirstBinding.inflate(inflater, container, false)
         setHasOptionsMenu(true)
         addInDatabase()
-        initialize()
-
+        this.lastCookie()
         return binding.root
     }
 
@@ -43,33 +45,27 @@ class FirstFragment : Fragment() {
 
     private fun addInDatabase() {
         val cookies = mapJsonToData().cookies
-        val applicationScope = CoroutineScope(SupervisorJob())
-        val db = CookieDataBase.invoke(requireContext(), applicationScope)
-        CoroutineScope(Dispatchers.IO).launch  {
-            val check = db.getCookieDao().exists(1)
-            if (!check) {
+        viewModel._allCookies.observe(viewLifecycleOwner) {
+            if (it.isEmpty()) {
                 for (data in cookies) {
-                    db.getCookieDao().addCookie(data)
+                    viewModel.insert(data)
                 }
+
             }
         }
     }
 
-    private fun initialize() {
 
-        var data:Cookie? = null
-        CoroutineScope(Dispatchers.IO).launch {
-            val applicationScope = CoroutineScope(SupervisorJob())
-            val db = CookieDataBase.invoke(requireContext(),applicationScope)
-            val cookie = db.getCookieDao().selectLast().get(0)
-            data = cookie
-            binding.brandTxt.text = cookie?.name.toString()
-            binding.flavorTxt.text = cookie?.flavour.toString()
+    private fun lastCookie() {
+        viewModel._allCookies.observe(viewLifecycleOwner) {
+            val cookie = it.last()
+            binding.nameTxt.loadImage(cookie.name)
+            binding.flavorTxt.text = cookie.flavour
+            binding.weightTxt.text = cookie.weight
+            binding.expDateTxt.text = cookie.expDate
+            binding.brandTxt.text = cookie.brand
         }
-
     }
-
-
 
 
     private fun openSecondFragment() {

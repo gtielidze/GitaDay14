@@ -13,7 +13,7 @@ data class Cookie(
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0,
     @SerializedName("name")
-    val name: String = "",
+    var name: String = "",
     @SerializedName("flavour")
     val flavour: String = "",
     @SerializedName("expdate")
@@ -22,7 +22,8 @@ data class Cookie(
     val brand: String = "",
     @SerializedName("weight")
     val weight: String = ""
-) {
+)
+{
     companion object {
         const val TABLE_NAME = "cookie_detail"
     }

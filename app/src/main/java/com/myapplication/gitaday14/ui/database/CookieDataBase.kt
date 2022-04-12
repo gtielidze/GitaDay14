@@ -8,7 +8,7 @@ import com.myapplication.gitaday14.ui.model.Cookie
 import kotlinx.coroutines.CoroutineScope
 
 
-@Database(entities = [Cookie::class], version = 1)
+@Database(entities = [Cookie::class], version = 2)
 abstract class CookieDataBase: RoomDatabase(){
     abstract fun getCookieDao(): CookieDao
     companion object {

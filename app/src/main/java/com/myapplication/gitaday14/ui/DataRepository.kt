@@ -1,32 +1,26 @@
 package com.myapplication.gitaday14.ui
 
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.lifecycle.lifecycleScope
-import com.google.gson.Gson
-import com.myapplication.gitaday14.ui.database.CookieDataBase
-import com.myapplication.gitaday14.ui.model.Cookies
-import com.myapplication.gitaday14.ui.utils.getJsonDataFromAsset
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import androidx.annotation.WorkerThread
+import com.myapplication.gitaday14.ui.database.CookieDao
+import com.myapplication.gitaday14.ui.model.Cookie
+import kotlinx.coroutines.flow.Flow
 
-class DataRepository {
+class CookieRepository(private val cookieDao: CookieDao) {
+    val allCookie: Flow<List<Cookie>> = cookieDao.fetchAllCookies()
 
-//    private fun mapJsonToData(): Cookies {
-//        val jsonFileString = getJsonDataFromAsset(requireContext(this), "cookiedata.json")
-//        return Gson().fromJson(jsonFileString, Cookies::class.java)
-//
-//    }
-//
-//    private fun addInDatabase() {
-//        val cookies = mapJsonToData().cookies
-//        val db = CookieDataBase.invoke(this)
-//        lifecycleScope.launch(Dispatchers.IO) {
-//            val check = db.getCookieDao().exists(1)
-//            if (!check) {
-//                for (data in cookies) {
-//                    db.getCookieDao().addCookie(data)
-//                }
-//            }
-//        }
-//    }
+
+    @WorkerThread
+    suspend fun insert(cookie: Cookie) {
+        cookieDao.insert(cookie)
+    }
+
+    @WorkerThread
+    suspend fun check(id: Int):Boolean {
+        return cookieDao.exists(id)
+    }
+
+    //@WorkerThread
+    suspend fun selectLast(): Cookie {
+        return cookieDao.selectLast()[0]
+    }
 }

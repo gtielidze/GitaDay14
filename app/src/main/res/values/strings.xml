@@ -7,4 +7,9 @@
     <string name="next_fragment">next fragment</string>
     <string name="add_cookie">add cookie</string>
     <string name="show_all">show all</string>
+    <string name="weight">weight</string>
+    <string name="brand">brand</string>
+    <string name="exp_date">exp date</string>
+    <string name="flavour">flavour</string>
+    <string name="name">name</string>
 </resources>

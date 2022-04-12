@@ -23,6 +23,7 @@
         <action
             android:id="@+id/action_secondFragment_to_thirdFragment"
             app:destination="@id/thirdFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/thirdFragment"
@@ -32,11 +33,18 @@
         <action
             android:id="@+id/action_thirdFragment_to_fourthFragment"
             app:destination="@id/fourthFragment" />
+        <argument
+            android:name="oneCookieData"
+            app:argType="string[]" />
     </fragment>
     <fragment
         android:id="@+id/fourthFragment"
         android:name="com.myapplication.gitaday14.ui.ui.FourthFragment"
         android:label="fragment_fourth"
-        tools:layout="@layout/fragment_fourth" />
+        tools:layout="@layout/fragment_fourth" >
+        <action
+            android:id="@+id/action_fourthFragment_to_firstFragment"
+            app:destination="@id/firstFragment" />
+    </fragment>
 
 </navigation>

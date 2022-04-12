@@ -8,5 +8,5 @@ import kotlinx.coroutines.SupervisorJob
 class App : Application() {
     val applicationScope = CoroutineScope(SupervisorJob())
     val database by lazy { CookieDataBase.invoke(this, applicationScope) }
-//    //val repository by lazy { CookieRepository(database.getCookieDao()) }
+    val repository by lazy { CookieRepository(database.getCookieDao()) }
 }
