@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Gita Day 14</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="recently_added">recently added</string>
+    <string name="next_screen">next screen</string>
+    <string name="next_fragment">next fragment</string>
+    <string name="add_cookie">add cookie</string>
+    <string name="show_all">show all</string>
+</resources>

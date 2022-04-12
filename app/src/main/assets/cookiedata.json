@@ -1,0 +1,46 @@
+{
+  "cookies": [
+    {
+      "name": "https://www.verybestbaking.com/sites/g/files/jgfbjl166/files/gdn_product/field_product_images/tollhouse-eor1xpgltv0advyuxrif.png",
+      "flavour": "vanilla",
+      "expdate": "180",
+      "brand": "nestle",
+      "weight": "200"
+    },
+    {
+      "name":  "https://cocoaffaire.com/wp-content/uploads/2021/10/Mars-51gm-600x600-1.png",
+      "flavour": "cinnamon",
+      "expdate": "180",
+      "brand": "mars",
+      "weight": "100"
+    },
+    {
+      "name": "http://www.barambo.ge/wp-content/uploads/2021/08/konusi-txilit-1.png",
+      "flavour": "ginger",
+      "expdate": "180",
+      "brand": "barambo",
+      "weight": "150"
+    },
+    {
+      "name": "https://i.pinimg.com/originals/c6/cf/e5/c6cfe590f1df30692080cd8e5ff480db.jpg",
+      "flavour": "ice cream",
+      "expdate": "180",
+      "brand": "roshen",
+      "weight": "80"
+    },
+    {
+      "name": "https://nordicexpatshop.com/media/catalog/product/cache/a75b4628650e2182ad447c229a356118/o/r/oreo-original-154g_2.jpg",
+      "flavour": "chocolate",
+      "expdate": "180",
+      "brand": "oreo",
+      "weight": "180"
+    },
+    {
+      "name": "https://i5.walmartimages.com/asr/bf89db18-1e38-4851-9604-2bdc7d4ab68c.99b245fa4a31d9114915ea7914503c91.jpeg",
+      "flavour": "salt",
+      "expdate": "180",
+      "brand": "snickers",
+      "weight": "180"
+    }
+  ]
+}
